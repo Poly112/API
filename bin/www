@@ -57,6 +57,9 @@ if (cluster.isMaster) {
         main();
         console.log(`server started process ${process.pid} on port ${port}`);
     });
+    cluster.on("exit", () => {
+        cluster.fork();
+    });
     server.on("error", onError);
     server.on("listening", onListening);
 }
